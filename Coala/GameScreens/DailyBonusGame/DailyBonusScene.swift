@@ -16,6 +16,7 @@ class DailyBonusScene: SKScene {
     private var spinRouletteBtn: SKSpriteNode!
     private var closeBtn: SKSpriteNode!
     private var rulesBtn: SKSpriteNode!
+    private var takeButton: SKSpriteNode?
     
     private var coala1: SKSpriteNode!
     private var coala2: SKSpriteNode!
@@ -146,8 +147,8 @@ class DailyBonusScene: SKScene {
         let totalWinLabel = createLabel(text: "+\(totalWin)", position: CGPoint(x: size.width / 2, y: size.height / 2 - 100), textSize: 142, fontColor: .white)
         totalWinNode.addChild(totalWinLabel)
         
-        let takeButton = createButtonFrom(src: "take_btn", size: CGSize(width: 250, height: 130), position: CGPoint(x: size.width / 2, y: 100))
-        totalWinNode.addChild(takeButton)
+        takeButton = createButtonFrom(src: "take_btn", size: CGSize(width: 250, height: 130), position: CGPoint(x: size.width / 2, y: 100))
+        totalWinNode.addChild(takeButton!)
         
         addChild(totalWinNode)
         totalWinNode.run(SKAction.fadeAlpha(to: 1, duration: 0.4))
@@ -177,7 +178,7 @@ class DailyBonusScene: SKScene {
             let nodes = nodes(at: location)
             let atPoint = atPoint(location)
             
-            if atPoint.name == "take_button" {
+            if atPoint.name == "take_btn" {
                 NotificationCenter.default.post(name: Notification.Name("claim_bonus"), object: nil, userInfo: ["reward": totalWin])
             } else {
                 for node in nodes {
